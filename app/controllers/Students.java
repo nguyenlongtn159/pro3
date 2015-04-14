@@ -34,17 +34,18 @@ public class Students extends Controller {
 		Form<UserAccount> boundForm = userForm.bindFromRequest();
 		if (boundForm.hasErrors()) {
 			flash("error", "Please correct the form below.");
-			return badRequest(views.html.details.render(boundForm, name));
+			return badRequest(views.html.svshow.render(boundForm, name));
 		}
-		UserAccount account = boundForm.get();
-		if (account.id == null) {
 
-		}
+
 		// account.save();
 		else {
+			UserAccount account = boundForm.get();
 			System.out.println("chan");
 			UserAccount model = UserAccount.findById(account.id);
 			model.name = account.name;
+			model.date = account.date;
+			model.sdt = account.sdt;
 			model.description = account.description;
 			model.update();
 		}
@@ -71,6 +72,10 @@ public class Students extends Controller {
 		Page<Detai> hodle = Detai.find(page);
 		return ok(views.html.sv_detai_all.render(hodle, user));
 		// return TODO;
+	}
+	public static Result list2(Integer page, UserAccount user) {
+		Page<UserAccount> hodle = UserAccount.find(page);
+		return ok(views.html.svhiddenlist.render(hodle, user));
 	}
 
 	public static Result Dangky(UserAccount user, Detai mDetai) {
@@ -102,5 +107,6 @@ public class Students extends Controller {
 		List<Message> msg = UserAccount.findmsg(name);
 		return ok();
 	}
+
 
 }

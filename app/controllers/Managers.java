@@ -30,6 +30,10 @@ public class Managers extends Controller {
 		Page<UserAccount> hodle = UserAccount.find(page);
 		return ok(views.html.list.render(hodle, user));
 	}
+	/*public static Result list(Integer page, String user) {
+		Page<UserAccount> hodle = UserAccount.find(page);
+		return ok(views.html.list.render(hodle, user));
+	} */
 
 	public static Result reSearch() {
 		return ok();
@@ -65,6 +69,10 @@ public class Managers extends Controller {
 			user.email=account.email;
 			user.password=account.password;
 			user.tag=account.tag;
+			user.date=account.date;
+			user.sdt=account.sdt;
+			user.chucdanh=account.chucdanh;
+			user.noicongtac=account.noicongtac;
 			user.description=account.description;
 			user.dieukien=account.dieukien;
 			user.save();
@@ -74,6 +82,10 @@ public class Managers extends Controller {
 			modles.email = account.email;
 			modles.password = account.password;
 			modles.tag = account.tag;
+			modles.date = account.date;
+			modles.sdt = account.sdt;
+			modles.chucdanh = account.chucdanh;
+			modles.noicongtac = account.noicongtac;
 			modles.description = account.description;
 			modles.dieukien=account.dieukien;
 			modles.update();
@@ -113,5 +125,13 @@ public class Managers extends Controller {
 		}
 		return redirect(routes.Managers.newMessage(user));
 	}
+	public static Result delete(String email ,UserAccount user) {
+  final UserAccount user1 = UserAccount.findByEmail(email);
+  if(user1 == null) {
+    return notFound(String.format("User %s does not exists.", email));
+  }
+  user1.delete();
+  return redirect(routes.Managers.list(0, user));
+}
 
 }

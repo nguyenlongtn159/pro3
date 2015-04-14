@@ -8,11 +8,11 @@ scalaVersion := "2.11.1"
 
 libraryDependencies += javaEbean
 
+libraryDependencies += filters
+
 libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
-  "org.postgresql" % "postgresql" % "9.3-1100-jdbc41",
   cache,
-  javaWs,
-  filters
+  javaWs
 )
